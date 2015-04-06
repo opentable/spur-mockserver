@@ -22,8 +22,6 @@ module.exports = (Logger) ->
       webServer[name] = @
       defaultsMessage = ""
 
-      Logger.info "useDefaults: #{useDefaults}"
-
       if useDefaults == true
         @andCallMethod("default")
         defaultsMessage = "with defaults"
