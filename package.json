@@ -2,6 +2,7 @@
   "name": "spur-mockserver",
   "version": "0.0.0",
   "description": "",
+  "main": "index.js",
   "scripts": {
     "test": "mocha ./test"
   },
@@ -18,7 +19,8 @@
     "coffee-script": "^1.9.1",
     "spur-ioc": "^0.1.1",
     "spur-common": "^0.1.8",
-    "spur-config": "0.0.1"
+    "spur-config": "0.0.1",
+    "spur-web": "0.0.9"
   },
   "devDependencies": {
     "mocha": "^2.2.1",
