@@ -6,7 +6,7 @@ global.chai           = require('chai');
 global.expect         = chai.expect
 
 global.srcDir         = path.resolve(__dirname, "../src");
-global.injector       = require(path.join(srcDir, "injector.coffee"));
+global.injector       = require(path.join(__dirname, "fixtures/injector.coffee"));
 
 process.env.NODE_ENV  = "test";
 
