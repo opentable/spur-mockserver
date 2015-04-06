@@ -11,4 +11,8 @@ module.exports = ()->
 
   ioc.merge(localInjector())
 
+  ioc.registerFolders __dirname, [
+    "endpoints"
+  ]
+
   ioc
