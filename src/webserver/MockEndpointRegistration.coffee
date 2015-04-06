@@ -4,7 +4,7 @@ module.exports = ($injector, _, Logger, MockEndpoint)->
 
   new class MockEndpointRegistration
 
-    register:(app)->
+    register:(app, webServer, useDefaults)->
 
       instanceOfMockEndpoint = (c)->
         c instanceof MockEndpoint
@@ -12,7 +12,7 @@ module.exports = ($injector, _, Logger, MockEndpoint)->
       registeredCount = _.chain(controllers)
         .values()
         .filter(instanceOfMockEndpoint)
-        .invoke("configure", app)
+        .invoke("configure", app, webServer, useDefaults)
         .value().length
 
       Logger.info "Registered #{registeredCount} MockEndpoint(s)"

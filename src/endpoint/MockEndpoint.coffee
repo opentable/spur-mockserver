@@ -1,4 +1,4 @@
-module.exports = () ->
+module.exports = (Logger) ->
 
   class MockEndpoint
 
@@ -11,10 +11,24 @@ module.exports = () ->
       POST:"POST"
     }
 
-    configure: (app) ->
+    configure: (app, webServer, useDefaults) ->
       method = @method().toLowerCase()
       app[method](@url(), @handler)
+      @registerOnServer(webServer, useDefaults)
       @
+
+    registerOnServer:(webServer, useDefaults)->
+      name = @.constructor.name
+      webServer[name] = @
+      defaultsMessage = ""
+
+      Logger.info "useDefaults: #{useDefaults}"
+
+      if useDefaults == true
+        @andCallMethod("default")
+        defaultsMessage = "with defaults"
+
+      Logger.info "Registered '#{name}' mock-endpoint #{defaultsMessage}"
 
     andCallMethod: (state) ->
       @state = {type:"fn", state}
