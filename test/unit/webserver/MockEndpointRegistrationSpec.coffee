@@ -13,7 +13,4 @@ describe "MockEndpointRegistration", ->
   it "should register UsersMockEndpoint", ->
     sinon.spy(@UsersMockEndpoint, "configure")
     @MockEndpointRegistration.register(@server.app, @server, true)
-
-    console.log "@UsersMockEndpoint.called: #{@UsersMockEndpoint.called}"
-
     expect(@UsersMockEndpoint.configure.called).to.equal(true)
