@@ -1,6 +1,6 @@
 module.exports = (BaseWebServer, MockEndpointRegistration, Logger)->
 
-  new class MockWebServer extends BaseWebServer
+  class MockWebServer extends BaseWebServer
 
     constructor:->
       super

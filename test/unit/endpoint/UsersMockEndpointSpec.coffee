@@ -2,6 +2,7 @@ describe "UsersMockEndpoint", ->
 
   beforeEach ()->
     injector().inject (@UsersMockEndpoint, @MockWebServer, @config, @HTTPService)=>
+      @server = new @MockWebServer()
 
   afterEach ()->
 
@@ -11,10 +12,10 @@ describe "UsersMockEndpoint", ->
   describe "test data calls", ->
 
     beforeEach ->
-      @MockWebServer.start()
+      @server.start()
 
     afterEach ->
-      @MockWebServer.stop()
+      @server.stop()
 
     expectedUser = (item, id, firstName, lastName)->
       testItem = {
