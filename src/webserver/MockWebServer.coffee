@@ -16,7 +16,7 @@ module.exports = (BaseWebServer, MockEndpointRegistration, Logger)->
 
     setUseDefaults:(@useDefaults = false)->
 
-    startWithDefaults:->
+    startWithDefaults:=>
       @setUseDefaults(true)
       @start()
 
