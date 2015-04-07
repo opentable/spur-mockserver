@@ -1,4 +1,4 @@
-module.exports = (BaseWebServer, MockEndpointRegistration, Logger)->
+module.exports = (BaseWebServer, MockEndpointRegistration, Logger, ControllerRegistration, _)->
 
   class MockWebServer extends BaseWebServer
 
@@ -8,10 +8,13 @@ module.exports = (BaseWebServer, MockEndpointRegistration, Logger)->
 
     registerMiddleware:->
       super
-      @registerMockEndpoints()
       @registerFixtureHandler()
+      @registerMockEndpoints()
+      ControllerRegistration.register(@app, @)
 
-    registerMockEndpoints:()->
+    registerControllers:->
+
+    registerMockEndpoints:->
       Logger.info "Attempting to register mock-endpoints - Use Defaults (#{@useDefaults})"
       MockEndpointRegistration.register(@app, @, @useDefaults)
 
