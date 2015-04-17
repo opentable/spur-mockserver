@@ -24,6 +24,9 @@ module.exports = (BaseWebServer, MockEndpointRegistration, Logger, ControllerReg
       @app.post "/fixtures", (req, res)=>
         _.map req.body.fixtures, (fixture)=> @["#{fixture.endpoint}MockEndpoint"].andCallMethod(fixture.method)
 
+      @app.post "/v2/fixtures", (req, res)=>
+        _.map req.body.fixtures, (fixture)=> @[fixture.endpoint].andCallMethod(fixture.method)
+
     setUseDefaults:(@useDefaults = false)->
 
     startWithDefaults:->
