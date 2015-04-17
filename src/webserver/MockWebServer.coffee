@@ -21,11 +21,22 @@ module.exports = (BaseWebServer, MockEndpointRegistration, Logger, ControllerReg
     registerFixtureHandler:->
       Logger.info "Registering the fixtures handler middleware"
 
-      @app.post "/fixtures", (req, res)=>
-        _.map req.body.fixtures, (fixture)=> @["#{fixture.endpoint}MockEndpoint"].andCallMethod(fixture.method)
+      @app.post "/fixtures", @handleFixtureRequest
+      @app.post "/v2/fixtures", @handleFixtureRequestV2
 
-      @app.post "/v2/fixtures", (req, res)=>
-        _.map req.body.fixtures, (fixture)=> @[fixture.endpoint].andCallMethod(fixture.method)
+    handleFixtureRequest:(req, res)=>
+      res.send _.map req.body.fixtures, @mapFixture
+
+    mapFixture:(fixture)=>
+      @["#{fixture.endpoint}MockEndpoint"].andCallMethod(fixture.method)
+      fixture
+
+    handleFixtureRequestV2:(req, res)=>
+      res.send _.map req.body.fixtures, @mapFixtureV2
+
+    mapFixtureV2:(fixture)=>
+      @["#{fixture.endpoint}"].andCallMethod(fixture.method)
+      fixture
 
     setUseDefaults:(@useDefaults = false)->
 
