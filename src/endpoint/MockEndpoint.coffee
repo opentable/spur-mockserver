@@ -26,7 +26,7 @@ module.exports = (Logger) ->
         @andCallMethod("default")
         defaultsMessage = "with defaults"
 
-      Logger.info "Registered '#{name}' mock-endpoint #{defaultsMessage}"
+      Logger.log "Registered '#{name}' mock-endpoint #{defaultsMessage}"
 
     andCallMethod: (state) ->
       @state = {type:"fn", state}

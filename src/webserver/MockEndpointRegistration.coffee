@@ -15,4 +15,4 @@ module.exports = ($injector, _, Logger, MockEndpoint)->
         .invoke("configure", app, webServer, useDefaults)
         .value().length
 
-      Logger.info "Registered #{registeredCount} MockEndpoint(s)"
+      Logger.log "Registered #{registeredCount} MockEndpoint(s)"
