@@ -15,11 +15,11 @@ module.exports = (BaseWebServer, MockEndpointRegistration, Logger, ControllerReg
     registerControllers:->
 
     registerMockEndpoints:->
-      Logger.info "Attempting to register mock-endpoints - Use Defaults (#{@useDefaults})"
+      Logger.log "Attempting to register mock-endpoints - Use Defaults (#{@useDefaults})"
       MockEndpointRegistration.register(@app, @, @useDefaults)
 
     registerFixtureHandler:->
-      Logger.info "Registering the fixtures handler middleware"
+      Logger.log "Registering the fixtures handler middleware"
 
       @app.post "/fixtures", @handleFixtureRequest
       @app.post "/v2/fixtures", @handleFixtureRequestV2

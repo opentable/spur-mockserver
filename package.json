@@ -1,6 +1,6 @@
 {
   "name": "spur-mockserver",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -17,8 +17,8 @@
   },
   "dependencies": {
     "coffee-script": "^1.9.1",
-    "spur-ioc": "^0.1.1",
-    "spur-config": "0.0.1"
+    "spur-ioc": "latest",
+    "spur-config": "latest"
   },
   "devDependencies": {
     "mocha": "^2.2.1",
