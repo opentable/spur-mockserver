@@ -11,6 +11,12 @@
     "url": "git://github.com/opentable/spur-mockserver.git"
   },
   "author": "Agustin Colchado <agustin@colchado.com>",
+  "keywords": [
+    "spur",
+    "spur-framework",
+    "express",
+    "mocks"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/opentable/spur-mockserver/issues"
