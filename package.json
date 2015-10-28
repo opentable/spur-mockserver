@@ -11,14 +11,20 @@
     "url": "git://github.com/opentable/spur-mockserver.git"
   },
   "author": "Agustin Colchado <agustin@colchado.com>",
+  "keywords": [
+    "spur",
+    "spur-framework",
+    "express",
+    "mocks"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/opentable/spur-mockserver/issues"
   },
   "dependencies": {
-    "coffee-script": "^1.9.1",
-    "spur-ioc": "latest",
-    "spur-config": "latest"
+    "coffee-script": "1.9.1",
+    "spur-ioc": "^0.1.1",
+    "spur-config": "^0.1.0"
   },
   "devDependencies": {
     "mocha": "^2.2.1",
@@ -28,7 +34,7 @@
     "sinon": "^1.14.1",
     "grunt-contrib-copy": "^0.8.0",
     "grunt-contrib-clean": "^0.6.0",
-    "spur-common": "^0.1.8",
-    "spur-web": "0.0.9"
+    "spur-common": "^0.1.15",
+    "spur-web": "^0.1.6"
   }
 }
