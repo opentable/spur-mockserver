@@ -1,7 +1,7 @@
 {
   "name": "spur-mockserver",
   "version": "0.0.6",
-  "description": "",
+  "description": "A Node.js library with tools to allow for the creation of mock web servers for testing with mocks and real web servers.",
   "main": "index.js",
   "scripts": {
     "test": "mocha ./test"
@@ -15,7 +15,8 @@
     "spur",
     "spur-framework",
     "express",
-    "mocks"
+    "mocks",
+    "mock endpoints"
   ],
   "license": "MIT",
   "bugs": {
@@ -23,7 +24,7 @@
   },
   "dependencies": {
     "coffee-script": "1.9.1",
-    "spur-ioc": "^0.1.1",
+    "spur-ioc": "^0.1.2",
     "spur-config": "^0.1.0"
   },
   "devDependencies": {
