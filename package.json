@@ -15,8 +15,7 @@
     "spur",
     "spur-framework",
     "express",
-    "mocks",
-    "mock endpoints"
+    "mocks"
   ],
   "license": "MIT",
   "bugs": {
