@@ -1,6 +1,6 @@
 {
   "name": "spur-mockserver",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A Node.js library with tools to allow for the creation of mock web servers for testing with mocks and real web servers.",
   "main": "index.js",
   "scripts": {
