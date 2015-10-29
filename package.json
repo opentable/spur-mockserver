@@ -35,7 +35,7 @@
     "sinon": "^1.14.1",
     "grunt-contrib-copy": "^0.8.0",
     "grunt-contrib-clean": "^0.6.0",
-    "spur-common": "^0.1.15",
-    "spur-web": "^0.1.6"
+    "spur-common": "latest",
+    "spur-web": "latest"
   }
 }
