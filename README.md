@@ -1,4 +1,5 @@
 <img src="https://opentable.github.io/spur/logos/Spur-MockServer.png?rand=1" width="100%" alt="Spur: Mock Server" />
+
 A [Node.js](http://nodejs.org/) library with tools to allow for the creation of mock web servers for testing with mocks and real web servers.
 
 [![NPM version](https://badge.fury.io/js/spur-mockserver.png)](http://badge.fury.io/js/spur-mockserver)
