@@ -9,6 +9,7 @@ module.exports = (Logger) ->
       PUT:"PUT"
       DELETE:"DELETE"
       POST:"POST"
+      PATCH: "PATCH"
     }
 
     configure: (app, webServer, useDefaults) ->
