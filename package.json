@@ -10,6 +10,9 @@
     "type": "git",
     "url": "git://github.com/opentable/spur-mockserver.git"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
   "author": "Agustin Colchado <agustin@colchado.com>",
   "keywords": [
     "spur",
