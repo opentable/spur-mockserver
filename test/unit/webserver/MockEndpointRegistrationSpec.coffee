@@ -1,14 +1,9 @@
 describe "MockEndpointRegistration", ->
 
-  beforeEach (done)->
-    injector().inject (@MockEndpointRegistration, @BaseWebServer, @UsersMockEndpoint)=>
+  beforeEach ()->
+    injector().inject (@MockEndpointRegistration, @BaseWebServer, @UsersMockEndpoint, @Logger) =>
+      @Logger.useRecorder()
       @server = new @BaseWebServer()
-      done()
-
-  afterEach ()->
-
-  it "should exist", ->
-    expect(@MockEndpointRegistration).to.exist
 
   it "should register UsersMockEndpoint", ->
     sinon.spy(@UsersMockEndpoint, "configure")
