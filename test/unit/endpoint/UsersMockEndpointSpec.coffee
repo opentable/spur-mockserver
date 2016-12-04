@@ -1,13 +1,10 @@
 describe "UsersMockEndpoint", ->
 
   beforeEach ()->
-    injector().inject (@UsersMockEndpoint, @MockWebServer, @config, @HTTPService)=>
+    injector().inject (@UsersMockEndpoint, @MockWebServer, @config, @HTTPService, @Logger)=>
+      @Logger.useRecorder()
       @server = new @MockWebServer()
 
-  afterEach ()->
-
-  it "should exist", ->
-    expect(@UsersMockEndpoint).to.exist
 
   describe "test data calls", ->
 
@@ -25,8 +22,7 @@ describe "UsersMockEndpoint", ->
       }
       expect(item).to.deep.equal(testItem)
 
-
-    it "should resolve with default data", (done)->
+    it "should resolve with default data", ()->
       @UsersMockEndpoint.andCallMethod("default")
       @HTTPService
         .get("http://localhost:#{@config.Port}/api/users/")
@@ -38,10 +34,8 @@ describe "UsersMockEndpoint", ->
           expectedUser(results.users[0], 123, "John", "Doe")
           expectedUser(results.users[1], 124, "Jane", "Doe")
 
-          done()
 
-
-    it "should resolve with 3 results", (done)->
+    it "should resolve with 3 results", ()->
       @UsersMockEndpoint.andCallMethod("withThree")
       @HTTPService
         .get("http://localhost:#{@config.Port}/api/users/")
@@ -53,5 +47,3 @@ describe "UsersMockEndpoint", ->
           expectedUser(results.users[0], 123, "John", "Doe")
           expectedUser(results.users[1], 124, "Jane", "Doe")
           expectedUser(results.users[2], 125, "Smith", "Doe")
-
-          done()
