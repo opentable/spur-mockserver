@@ -1,12 +1,12 @@
-spur       = require "spur-ioc"
+import spur from 'spur-ioc';
 
-module.exports = ()->
+module.exports = function () {
+  const ioc = spur.create('spur-mockserver');
 
-  ioc = spur.create("spur-mockserver")
+  ioc.registerFolders(__dirname, [
+    'endpoint',
+    'webserver'
+  ]);
 
-  ioc.registerFolders __dirname, [
-    "endpoint"
-    "webserver"
-  ]
-
-  ioc
+  return ioc;
+};

@@ -1,56 +1,60 @@
-module.exports = (BaseWebServer, MockEndpointRegistration, Logger, ControllerRegistration, _)->
+module.exports = function (BaseWebServer, MockEndpointRegistration, Logger, ControllerRegistration, _) {
+  class MockWebServer extends BaseWebServer {
+    constructor() {
+      super();
+      this.useDefaults = false;
+    }
 
-  class MockWebServer extends BaseWebServer
+    registerMiddleware() {
+      super.registerMiddleware();
+      this.registerFixtureHandler();
+      this.registerMockEndpoints();
+      ControllerRegistration.register(this.app, this);
+    }
 
-    constructor:->
-      super
-      @useDefaults = false
+    // eslint-disable-next-line
+    registerControllers() {
+    }
 
-    registerMiddleware:->
-      super
-      @registerFixtureHandler()
-      @registerMockEndpoints()
-      ControllerRegistration.register(@app, @)
+    registerMockEndpoints() {
+      Logger.log(`Attempting to register mock-endpoints - Use Defaults (${this.useDefaults})`);
+      MockEndpointRegistration.register(this.app, this, this.useDefaults);
+    }
 
-    registerControllers:->
+    registerFixtureHandler() {
+      Logger.log('Registering the fixtures handler middleware');
 
-    registerMockEndpoints:->
-      Logger.log "Attempting to register mock-endpoints - Use Defaults (#{@useDefaults})"
-      MockEndpointRegistration.register(@app, @, @useDefaults)
+      this.app.post('/fixtures', this.handleFixtureRequest.bind(this));
+      this.app.post('/v2/fixtures', this.handleFixtureRequestV2.bind(this));
+    }
 
-    registerFixtureHandler:->
-      Logger.log "Registering the fixtures handler middleware"
+    handleFixtureRequest(req, res) {
+      res.send(_.map(req.body.fixtures, this.mapFixture.bind(this)));
+    }
 
-      @app.post "/fixtures", @handleFixtureRequest
-      @app.post "/v2/fixtures", @handleFixtureRequestV2
-      @app.post "/v3/fixtures", @handleFixtureRequestV3
+    handleFixtureRequestV2(req, res) {
+      res.send(_.map(req.body.fixtures, this.mapFixtureV2.bind(this)));
+    }
 
-    handleFixtureRequest:(req, res)=>
-      res.send _.map req.body.fixtures, @mapFixture
+    mapFixture(fixture) {
+      this[`${fixture.endpoint}MockEndpoint`].andCallMethod(fixture.method);
+      return fixture;
+    }
 
-    mapFixture:(fixture)=>
-      @["#{fixture.endpoint}MockEndpoint"].andCallMethod(fixture.method)
-      fixture
+    mapFixtureV2(fixture) {
+      this[`${fixture.endpoint}`].andCallMethod(fixture.method);
+      return fixture;
+    }
 
-    handleFixtureRequestV2:(req, res)=>
-      res.send _.map req.body.fixtures, @mapFixtureV2
+    setUseDefaults(useDefaults = false) {
+      this.useDefaults = useDefaults;
+    }
 
-    mapFixtureV2:(fixture)=>
-      @["#{fixture.endpoint}"].andCallMethod(fixture.method)
-      fixture
+    startWithDefaults() {
+      this.setUseDefaults(true);
+      return this.start();
+    }
+  }
 
-    handleFixtureRequestV3:(req, res)=>
-      res.send _.map req.body.fixtures, @mapFixtureV3
-
-    mapFixtureV3:(fixture)=>
-      if fixture.json
-        @["#{fixture.endpoint}"].andReturnJSON(fixture.json)
-      else
-        @["#{fixture.endpoint}"].andCallMethod(fixture.method)
-      fixture
-
-    setUseDefaults:(@useDefaults = false)->
-
-    startWithDefaults:->
-      @setUseDefaults(true)
-      @start()
+  return MockWebServer;
+};

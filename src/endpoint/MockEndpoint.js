@@ -1,42 +1,58 @@
-module.exports = (Logger) ->
+/* eslint-disable no-param-reassign */
 
-  class MockEndpoint
+module.exports = function (Logger) {
+  class MockEndpoint {
 
-    state: false
-
-    @METHODS:{
-      GET:"GET"
-      PUT:"PUT"
-      DELETE:"DELETE"
-      POST:"POST"
-      PATCH: "PATCH"
+    static get state() {
+      return false;
     }
 
-    configure: (app, webServer, useDefaults) ->
-      method = @method().toLowerCase()
-      app[method](@url(), @handler)
-      @registerOnServer(webServer, useDefaults)
-      @
+    static get METHODS() {
+      return {
+        GET: 'GET',
+        PUT: 'PUT',
+        DELETE: 'DELETE',
+        POST: 'POST',
+        PATCH: 'PATCH'
+      };
+    }
 
-    registerOnServer:(webServer, useDefaults)->
-      name = @.constructor.name
-      webServer[name] = @
-      defaultsMessage = ""
+    configure(app, webServer, useDefaults) {
+      const method = this.method().toLowerCase();
+      app[method](this.url(), this.handler.bind(this));
+      this.registerOnServer(webServer, useDefaults);
+      return this;
+    }
 
-      if useDefaults == true
-        @andCallMethod("default")
-        defaultsMessage = "with defaults"
+    registerOnServer(webServer, useDefaults) {
+      const name = this.constructor.name;
+      let defaultsMessage = '';
+      webServer[name] = this;
 
-      Logger.log "Registered '#{name}' mock-endpoint #{defaultsMessage}"
+      if (useDefaults === true) {
+        this.andCallMethod('default');
+        defaultsMessage = 'with defaults';
+      }
 
-    andCallMethod: (state) ->
-      @state = {type:"fn", state}
+      Logger.log(`Registered '#{name}' mock-endpoint ${defaultsMessage}`);
+    }
 
-    andReturnJSON: (json, httpStatus=200) ->
-      @state = {type:"json", json, httpStatus}
+    andCallMethod(state) {
+      this.state = { type: 'fn', state };
+    }
 
-    handler: (req, res) =>
-      if @state.type is "fn"
-        @[@state.state](req,res)
-      else if @state.type is "json"
-        res.status(@state.httpStatus).json(@state.json)
+    andReturnJSON(json, httpStatus = 200) {
+      this.state = { type: 'json', json, httpStatus };
+    }
+
+    handler(req, res) {
+      if (this.state.type === 'fn') {
+        this[this.state.state](req, res);
+      } else if (this.state.type === 'json') {
+        res.status(this.state.httpStatus).json(this.state.json);
+      }
+    }
+  }
+
+  return MockEndpoint;
+};

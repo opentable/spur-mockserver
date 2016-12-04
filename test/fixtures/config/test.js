@@ -1,4 +1,4 @@
-module.exports = functin () {
+module.exports = function () {
 
   this.extends("default");
 

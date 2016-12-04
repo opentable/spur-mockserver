@@ -1,43 +1,53 @@
-module.exports = (MockEndpoint)->
+module.exports = function (MockEndpoint) {
+  class UsersMockEndpoint extends MockEndpoint {
 
-  new class UsersMockEndpoint extends MockEndpoint
+    method() {
+      return MockEndpoint.METHODS.GET;
+    }
 
-    method: -> MockEndpoint.METHODS.GET
-    url: -> "/api/users/"
+    url() {
+      return '/api/users/';
+    }
 
-    default: (req, res) ->
-      res.json {
+    default(req, res) {
+      res.json({
         users: [
           {
-            id: 123
-            firstName: "John"
-            lastName: "Doe"
-          }
+            id: 123,
+            firstName: 'John',
+            lastName: 'Doe'
+          },
           {
-            id: 124
-            firstName: "Jane"
-            lastName: "Doe"
+            id: 124,
+            firstName: 'Jane',
+            lastName: 'Doe'
           }
         ]
-      }
+      });
+    }
 
-    withThree: (req, res) ->
-      res.json {
+    withThree(req, res) {
+      res.json({
         users: [
           {
-            id: 123
-            firstName: "John"
-            lastName: "Doe"
-          }
+            id: 123,
+            firstName: 'John',
+            lastName: 'Doe'
+          },
           {
-            id: 124
-            firstName: "Jane"
-            lastName: "Doe"
-          }
+            id: 124,
+            firstName: 'Jane',
+            lastName: 'Doe'
+          },
           {
-            id: 125
-            firstName: "Smith"
-            lastName: "Doe"
+            id: 125,
+            firstName: 'Smith',
+            lastName: 'Doe'
           }
         ]
-      }
+      });
+    }
+  }
+
+  return new UsersMockEndpoint();
+};
