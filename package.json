@@ -2,9 +2,17 @@
   "name": "spur-mockserver",
   "version": "0.0.10",
   "description": "A Node.js library with tools to allow for the creation of mock web servers for testing with mocks and real web servers.",
-  "main": "index.js",
+  "main": "lib/injector",
+  "jsnext:main": "./src/injector",
   "scripts": {
-    "test": "mocha ./test"
+    "build": "babel src -d lib --source-maps",
+    "dev": "babel --watch src -d lib",
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test-unit": "babel-node --debug node_modules/mocha/bin/_mocha ./test/unit/",
+    "test-integration": "babel-node --debug node_modules/mocha/bin/_mocha ./test/integration/",
+    "test": "npm run test-unit",
+    "build-and-test": "npm run build && npm test"
   },
   "repository": {
     "type": "git",
@@ -13,7 +21,10 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
   },
-  "author": "Agustin Colchado <agustin@colchado.com>",
+  "author": {
+    "name": "Agustin Colchado",
+    "email": "agustin@colchado.com"
+  },
   "keywords": [
     "spur",
     "spur-framework",
@@ -30,8 +41,16 @@
     "spur-ioc": "^0.2.4"
   },
   "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-es2015-loose": "^8.0.0",
     "chai": "^3.5.0",
+    "eslint": "^3.11.1",
+    "eslint-config-opentable": "^6.0.0",
+    "eslint-plugin-import": "^2.2.0",
     "mocha": "^3.2.0",
+    "nock": "^9.0.2",
     "sinon": "^1.17.6",
     "spur-common": "^0.3.1",
     "spur-web": "^0.4.1"
