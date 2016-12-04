@@ -1,8 +1,9 @@
-injector = require "./test/fixtures/injector"
+/* eslint-disable */
+var injector = require('./test/fixtures/injector');
 
-process.env.NODE_ENV = "test"
+process.env.NODE_ENV = 'test';
 
-injector().inject (MockWebServer, UncaughtHandler)->
-
-  UncaughtHandler.listen()
-  MockWebServer.startWithDefaults()
+injector().inject(function (MockWebServer, UncaughtHandler) {
+  UncaughtHandler.listen();
+  MockWebServer.startWithDefaults();
+});

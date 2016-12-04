@@ -1,9 +1,11 @@
-describe "MockWebServer", ->
+describe('MockWebServer', function () {
+  beforeEach(() => {
+    injector().inject((MockWebServer) => {
+      this.MockWebServer = MockWebServer;
+    });
+  });
 
-  beforeEach ()->
-    injector().inject (@MockWebServer)=>
-
-  afterEach ()->
-
-  it "should exist", ->
-    expect(@MockWebServer).to.exist
+  it('should exist', () => {
+    expect(this.MockWebServer).to.exist;
+  });
+});

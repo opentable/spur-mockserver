@@ -1,9 +1,12 @@
-describe "MockEndpoint", ->
+describe('MockEndpoint', function () {
+  beforeEach(() => {
+    injector().inject((MockEndpoint) => {
+      this.MockEndpoint = MockEndpoint;
+    });
+  });
 
-  beforeEach ()->
-    injector().inject (@MockEndpoint)=>
-
-  afterEach ()->
-
-  it "should exist", ->
-    expect(@MockEndpoint).to.exist
+  it('should exist', () => {
+    // eslint-disable-next-line
+    expect(this.MockEndpoint).to.exist;
+  });
+});

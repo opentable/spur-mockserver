@@ -1,9 +1,11 @@
-describe "config", ->
+describe('config', function () {
+  beforeEach(() => {
+    injector().inject((config) => {
+      this.config = config;
+    });
+  });
 
-  beforeEach ()->
-    injector().inject (@config)=>
-
-  afterEach ()->
-
-  it "should set the valid port", ->
-    expect(@config.Port).to.equal 9780
+  it('should set the valid port', () => {
+    expect(this.config.Port).to.equal(9780);
+  });
+});
