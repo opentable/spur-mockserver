@@ -1,13 +1,16 @@
-var path              = require("path");
+/* eslint-disable import/no-extraneous-dependencies */
 
-global.assert         = require('assert');
-global.sinon          = require('sinon');
-global.chai           = require('chai');
-global.expect         = chai.expect
+const path = require('path');
 
-global.srcDir         = path.resolve(__dirname, "../src");
-global.injector       = require(path.join(__dirname, "fixtures/injector.coffee"));
+global.assert = require('assert');
+global.sinon = require('sinon');
+global.chai = require('chai');
 
-process.env.NODE_ENV  = "test";
+global.expect = global.chai.expect;
+
+global.srcDir = path.resolve(__dirname, '../src');
+global.injector = require(path.join(__dirname, 'fixtures/injector'));
+
+process.env.NODE_ENV = 'test';
 
 process.setMaxListeners(1000);
