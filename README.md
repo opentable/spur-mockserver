@@ -17,6 +17,7 @@ The Spur Framework is a collection of commonly used Node.JS libraries used to cr
     - [Usage](#usage)
       - [Standalone usage example](#standalone-usage-example)
       - [Mixed web app usage example](#mixed-web-app-usage-example)
+      - [Controlling fixtures from a browser client](#controlling-fixtures-from-a-browser-client)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -174,6 +175,42 @@ module.exports = (BaseWebServer, config)->
       @start()
 ```
 
+### Controlling fixtures from a browser client
+
+The `/v3/fixtures` middleware handler enables the customization of fixtures returned by mock endpoints from web browser clients, e.g. with `XMLHttpRequest` or `fetch`, addressing use cases of web UI developers and manual QA.
+
+#### Method
+
+```javascript
+var xhr = new XMLHttpRequest();
+xhr.open("POST", "http://localhost/v3/fixtures");
+xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+xhr.send(JSON.stringify({
+  fixtures: [{
+    endpoint: "MyMockEndpoint",
+    method: "myMethod"
+  }]
+}));
+```
+
+If the mock server is running on `localhost` and the mock endpoint `MyMockEndpoint` is registered and has a method `myMethod`, the `POST` request succeeds and successive requests that are handled by `MyMockEndpoint` will run `myMethod` to generate its response.
+
+#### JSON
+
+```javascript
+var xhr = new XMLHttpRequest();
+xhr.open("POST", "http://localhost/v3/fixtures");
+xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+xhr.send(JSON.stringify({
+  fixtures: [{
+    endpoint: "MyMockEndpoint",
+    json: {"example":[1, 2, 3]}
+  }]
+}));
+```
+
+If the mock server is running on `localhost` and the mock endpoint `MyMockEndpoint` is registered, the `POST` request succeeds and successive requests that are handled by `MyMockEndpoint` will respond with an HTTP status of `200` and the JSON  `{"example":[1, 2, 3]}`.
+
 # Contributing
 
 ## We accept pull requests
@@ -201,4 +238,3 @@ $ npm test
 # License
 
 [MIT](LICENSE)
-
