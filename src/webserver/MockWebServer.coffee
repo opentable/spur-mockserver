@@ -23,6 +23,7 @@ module.exports = (BaseWebServer, MockEndpointRegistration, Logger, ControllerReg
 
       @app.post "/fixtures", @handleFixtureRequest
       @app.post "/v2/fixtures", @handleFixtureRequestV2
+      @app.post "/v3/fixtures", @handleFixtureRequestV3
 
     handleFixtureRequest:(req, res)=>
       res.send _.map req.body.fixtures, @mapFixture
@@ -36,6 +37,16 @@ module.exports = (BaseWebServer, MockEndpointRegistration, Logger, ControllerReg
 
     mapFixtureV2:(fixture)=>
       @["#{fixture.endpoint}"].andCallMethod(fixture.method)
+      fixture
+
+    handleFixtureRequestV3:(req, res)=>
+      res.send _.map req.body.fixtures, @mapFixtureV3
+
+    mapFixtureV3:(fixture)=>
+      if fixture.json
+        @["#{fixture.endpoint}"].andReturnJSON(fixture.json)
+      else
+        @["#{fixture.endpoint}"].andCallMethod(fixture.method)
       fixture
 
     setUseDefaults:(@useDefaults = false)->
