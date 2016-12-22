@@ -1,3 +1,4 @@
+
 *.log
 *.pid
 *.seed
@@ -6,4 +7,6 @@
 .sass-cache/
 .lock-wscript/
 node_modules/
-bower_components/
+/dist
+/lib
+.DS_Store*
