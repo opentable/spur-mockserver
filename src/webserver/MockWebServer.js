@@ -26,6 +26,7 @@ module.exports = function (BaseWebServer, MockEndpointRegistration, Logger, Cont
 
       this.app.post('/fixtures', this.handleFixtureRequest.bind(this));
       this.app.post('/v2/fixtures', this.handleFixtureRequestV2.bind(this));
+      this.app.post('/v3/fixtures', this.handleFixtureRequestV3.bind(this));
     }
 
     handleFixtureRequest(req, res) {
@@ -43,6 +44,20 @@ module.exports = function (BaseWebServer, MockEndpointRegistration, Logger, Cont
 
     mapFixtureV2(fixture) {
       this[`${fixture.endpoint}`].andCallMethod(fixture.method);
+      return fixture;
+    }
+
+    handleFixtureRequestV3(req, res) {
+      res.send(_.map(req.body.fixtures, this.mapFixtureV3.bind(this)));
+    }
+
+    mapFixtureV3(fixture) {
+      if (fixture.json) {
+        this[`${fixture.endpoint}`].andReturnJSON(fixture.json);
+      } else {
+        this[`${fixture.endpoint}`].andCallMethod(fixture.method);
+      }
+
       return fixture;
     }
 
