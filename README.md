@@ -28,7 +28,6 @@ The Spur Framework is a collection of commonly used Node.JS libraries used to cr
 
 `Dependencies:`
 ```bash
-$ npm install --save coffee-script
 $ npm install --save spur-ioc spur-config spur-common spur-web
 ```
 
@@ -43,136 +42,158 @@ $ npm install spur-mockserver --save
 
 This example will only show the files that show unique configurations to a mock server. For a fully detailed example, [please view the example here](https://github.com/opentable/spur-examples/tree/master/spur-mockserver).
 
-#### `src/injector.coffee`
+#### `src/injector.js`
 
-```coffeescript
-path           = require "path"
-spur           = require "spur-ioc"
-spurCommon     = require "spur-common"
-spurWeb        = require "spur-web"
-spurMockserver = require "spur-mockserver"
-spurConfig     = require "spur-config"
-registerConfig = require "spur-common/registerConfig"
+```javascript
+const path = require('path');
+const spur = require('spur-ioc');
+const spurCommon = require('spur-common');
+const spurWeb = require('spur-web');
+const spurMockserver = require('spur-mockserver');
+const spurConfig = require('spur-config');
+const registerConfig = require('spur-common/registerConfig');
 
-module.exports = ()->
+module.exports = function () {
 
-  ioc = spur.create("spur-mockserver-example")
+  const ioc = spur.create('spur-mockserver-example');
 
-  registerConfig(ioc, path.join(__dirname, "./config"))
+  registerConfig(ioc, path.join(__dirname, './config'));
 
-  ioc.merge(spurCommon())
-  ioc.merge(spurWeb())
-  ioc.merge(spurMockserver())
+  ioc.merge(spurCommon());
+  ioc.merge(spurWeb());
+  ioc.merge(spurMockserver());
 
-  ioc.registerFolders __dirname, [
-    "mocks"
-    "runtime"
-  ]
+  ioc.registerFolders(__dirname, [
+    'mocks'
+    'runtime'
+  ]);
 
-  ioc
+  return ioc;
+};
 ```
 
-#### `src/runtime/WebServer.coffee`
+#### `src/runtime/WebServer.js`
 
-```coffeescript
-module.exports = (MockWebServer)->
+```javascript
+module.exports = function (MockWebServer) {
+  class WebServer extends MockWebServer {
+  }
 
-  new class WebServer extends MockWebServer
+  return new WebServer();
+}
 ```
 
-#### `src/mocks/UserMockEndpoint.coffee`
+#### `src/mocks/UserMockEndpoint.js`
 
-By creating files with the ending name of `*MockEndPoint.coffee`, it will self register as a mock controller. You can have multiple MockEndpoint files, as long as they don't share the same endpoint urls.
+By creating files with the ending name of `*MockEndPoint.js`, it will self register as a mock controller. You can have multiple MockEndpoint files, as long as they don't share the same endpoint urls.
 
 You can also have multiple request handlers in the same MockEndpoint and change which loads dynamically.
 
-```coffeescript
-module.exports = (MockEndpoint) ->
+```javascript
+module.exports = function (MockEndpoint) {
 
-  new class UserMockEndpoint extends MockEndpoint
+  class UserMockEndpoint extends MockEndpoint {
+    method() {
+      return MockEndpoint.METHODS.GET;
+    }
 
-    method: -> MockEndpoint.METHODS.GET
-    url: -> "/user/:id"
+    url() {
+      return '/user/:id';
+    }
 
-    default:(req, res, next) ->
-      userId = parseInt(req.params.id)
-      user = {
-        id: userId
-        name: "User Name"
+    default(req, res, next) {
+      const userId = parseInt(req.params.id);
+      const user = {
+        id: userId,
+        name: "User Name",
         statusCode: 200
-      }
+      };
 
-      res.status(user.statusCode).json(user)
+      res.status(user.statusCode).json(user);
+    }
+  }
+
+  return new UserMockEndpoint();
+};
 ```
 
-#### `start.coffee`
+#### `start.js`
 
-```coffeescript
-injector = require("./src/injector")
+```javascript
+const injector = require('./src/injector');
 
-injector().inject (WebServer) ->
-
-  # Starts the web server by loading all the default methods in the MockEndPoints
-  WebServer.startWithDefaults()
+injector().inject(function (WebServer) {
+  // Starts the web server by loading all the default methods in the MockEndPoints
+  WebServer.startWithDefaults();
+});
 ```
 
 ### Mixed web app usage example
 
 While you can have a standalone mock server, sometimes it's needed to use mock endpoints in an actual application. This scenario could be due to the need to be able to work on parts of the REST API that are defined and mock out parts that are not completely defined.
 
-The following examples show how you mix them by adding a few calls to your web server app based on [BaseWebServer](https://github.com/opentable/spur-web/blob/master/src/webserver/BaseWebServer.coffee) defined in [Spur-Web](https://www.npmjs.com/package/spur-web). For it's full configuration, take a look at the documentation in Spur-Web, but the following are a highlight of the dependency configuration needed to make it work.
+The following examples show how you mix them by adding a few calls to your web server app based on [BaseWebServer](https://github.com/opentable/spur-web/blob/master/src/webserver/BaseWebServer.js) defined in [Spur-Web](https://www.npmjs.com/package/spur-web). For it's full configuration, take a look at the documentation in Spur-Web, but the following are a highlight of the dependency configuration needed to make it work.
 
-#### `src/injector.coffee`
+#### `src/injector.js`
 
-```coffeescript
-path           = require "path"
-spur           = require "spur-ioc"
-spurCommon     = require "spur-common"
-spurWeb        = require "spur-web"
-spurMockserver = require "spur-mockserver"
-spurConfig     = require "spur-config"
-registerConfig = require "spur-common/registerConfig"
+```javascript
+const path = require('path');
+const spur = require('spur-ioc');
+const spurCommon = require('spur-common');
+const spurWeb = require('spur-web');
+const spurMockserver = require('spur-mockserver');
+const spurConfig = require('spur-config');
+const registerConfig = require('spur-common/registerConfig');
 
-module.exports = ()->
+module.exports = function () {
+  const ioc = spur.create('spur-mockserver-example');
 
-  ioc = spur.create("spur-mockserver-example")
+  // ... other dependencies
 
-  # ... other dependencies
+  ioc.merge(spurMockserver());
 
-  ioc.merge(spurMockserver())
+  ioc.registerFolders(__dirname, [
+    'mocks'
+    'runtime'
+  ]);
 
-  ioc.registerFolders __dirname, [
-    "mocks"
-    "runtime"
-  ]
-
-  ioc
+  return ioc;
+};
 ```
 
-#### `src/runtime/WebServer.coffee`
+#### `src/runtime/WebServer.js`
 
-```coffeescript
-module.exports = (BaseWebServer, config)->
+```javascript
+module.exports = function (BaseWebServer, config) {
 
-  new class MockWebServer extends BaseWebServer
+  class MockWebServer extends BaseWebServer {
+    constructor() {
+      super();
+      this.useDefaults = config.useMockDefaults;
+    }
 
-    constructor:->
-      super
-      @useDefaults = config.useMockDefaults
+    registerMiddleware() {
+      super.registerMiddleware();
+      this.registerMockEndpoints();
+    }
 
-    registerMiddleware:->
-      super
-      @registerMockEndpoints()
+    registerMockEndpoints() {
+      Logger.log(`Attempting to register mock-endpoints - Use Defaults (${this.useDefaults})`);
+      MockEndpointRegistration.register(this.app, this, this.useDefaults);
+    }
 
-    registerMockEndpoints:->
-      Logger.log "Attempting to register mock-endpoints - Use Defaults (#{@useDefaults})"
-      MockEndpointRegistration.register(@app, @, @useDefaults)
+    setUseDefaults(useDefaults = false) {
+      this.useDefaults = useDefaults;
+    }
 
-    setUseDefaults:(@useDefaults = false)->
+    startWithDefaults() {
+      this.setUseDefaults(true)
+      return this.start();
+    }
+  }
 
-    startWithDefaults:->
-      @setUseDefaults(true)
-      @start()
+  return new MockWebServer();
+};
 ```
 
 ### Controlling fixtures from a browser client
@@ -182,13 +203,13 @@ The `/v3/fixtures` middleware handler enables the customization of fixtures retu
 #### Method
 
 ```javascript
-var xhr = new XMLHttpRequest();
-xhr.open("POST", "http://localhost/v3/fixtures");
-xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+const xhr = new XMLHttpRequest();
+xhr.open('POST', 'http://localhost/v3/fixtures');
+xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
 xhr.send(JSON.stringify({
   fixtures: [{
-    endpoint: "MyMockEndpoint",
-    method: "myMethod"
+    endpoint: 'MyMockEndpoint',
+    method: 'myMethod'
   }]
 }));
 ```
@@ -198,13 +219,13 @@ If the mock server is running on `localhost` and the mock endpoint `MyMockEndpoi
 #### JSON
 
 ```javascript
-var xhr = new XMLHttpRequest();
-xhr.open("POST", "http://localhost/v3/fixtures");
-xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+const xhr = new XMLHttpRequest();
+xhr.open('POST', 'http://localhost/v3/fixtures');
+xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
 xhr.send(JSON.stringify({
   fixtures: [{
-    endpoint: "MyMockEndpoint",
-    json: {"example":[1, 2, 3]}
+    endpoint: 'MyMockEndpoint',
+    json: { 'example':[1, 2, 3] }
   }]
 }));
 ```
@@ -232,7 +253,7 @@ To run the test suite, first install the dependancies, then run `npm test`
 
 ```bash
 $ npm install
-$ npm test
+$ npm build-and-test
 ```
 
 # License
