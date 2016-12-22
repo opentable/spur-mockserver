@@ -12,6 +12,7 @@
     "test-unit": "babel-node --debug node_modules/mocha/bin/_mocha ./test/unit/",
     "test-integration": "babel-node --debug node_modules/mocha/bin/_mocha ./test/integration/",
     "test": "npm run test-unit",
+    "start": "babel-node start-with-fixtures.js",
     "build-and-test": "npm run build && npm test"
   },
   "repository": {
@@ -36,20 +37,19 @@
     "url": "https://github.com/opentable/spur-mockserver/issues"
   },
   "dependencies": {
-    "coffee-script": "^1.11.1",
     "spur-config": "^1.0.2",
     "spur-ioc": "^0.2.4"
   },
   "devDependencies": {
-    "babel-cli": "^6.18.0",
+    "babel-cli": "^6.5.1",
     "babel-plugin-add-module-exports": "^0.2.1",
-    "babel-preset-es2015": "^6.18.0",
-    "babel-preset-es2015-loose": "^8.0.0",
+    "babel-preset-es2015": "^6.5.0",
+    "babel-preset-es2015-loose": "^7.0.0",
     "chai": "^3.5.0",
-    "eslint": "^3.11.1",
+    "eslint": "^2.4.0",
     "eslint-config-opentable": "^4.0.0",
-    "eslint-plugin-import": "^2.2.0",
-    "mocha": "^3.2.0",
+    "eslint-plugin-import": "^1.8.1",
+    "mocha": "^2.4.5",
     "nock": "^9.0.2",
     "sinon": "^1.17.6",
     "spur-common": "^0.3.1",

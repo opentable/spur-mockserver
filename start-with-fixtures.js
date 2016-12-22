@@ -1,9 +1,12 @@
-/* eslint-disable */
-var injector = require('./test/fixtures/injector');
+/* eslint-disable prefer-arrow-callback */
+const injector = require('./test/fixtures/injector');
 
 process.env.NODE_ENV = 'test';
 
 injector().inject(function (MockWebServer, UncaughtHandler) {
   UncaughtHandler.listen();
-  MockWebServer.startWithDefaults();
+
+  const server = new MockWebServer();
+
+  server.startWithDefaults();
 });
