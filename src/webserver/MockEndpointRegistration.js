@@ -13,7 +13,7 @@ module.exports = function ($injector, _, Logger, MockEndpoint) {
       const registeredCount = _.chain(this.controllers)
         .values()
         .filter(instanceOfMockEndpoint)
-        .invoke('configure', app, webServer, useDefaults)
+        .invokeMap('configure', app, webServer, useDefaults)
         .value().length;
 
       Logger.log(`Registered ${registeredCount} MockEndpoint(s)`);
