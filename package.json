@@ -52,7 +52,7 @@
     "mocha": "^2.4.5",
     "nock": "^9.0.2",
     "sinon": "^1.17.6",
-    "spur-common": "^0.3.1",
-    "spur-web": "^0.4.1"
+    "spur-common": ">1.0.0-rc",
+    "spur-web": ">1.0.0-rc"
   }
 }
