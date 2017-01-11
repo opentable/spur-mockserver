@@ -1,6 +1,6 @@
 {
   "name": "spur-mockserver",
-  "version": "0.0.12",
+  "version": "1.0.0-rc.1",
   "description": "A Node.js library with tools to allow for the creation of mock web servers for testing with mocks and real web servers.",
   "main": "lib/injector",
   "jsnext:main": "./src/injector",
@@ -20,7 +20,8 @@
     "url": "git://github.com/opentable/spur-mockserver.git"
   },
   "publishConfig": {
-    "registry": "https://registry.npmjs.org"
+    "registry": "https://registry.npmjs.org",
+    "tag": "next"
   },
   "author": {
     "name": "Agustin Colchado",
