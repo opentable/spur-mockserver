@@ -26,6 +26,12 @@
     "name": "Agustin Colchado",
     "email": "agustin@colchado.com"
   },
+  "contributors": [
+    {
+      "name": "Danielle Blank",
+      "email": "dgdblank@gmail.com"
+    }
+  ],
   "keywords": [
     "spur",
     "spur-framework",
@@ -35,6 +41,9 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/opentable/spur-mockserver/issues"
+  },
+  "engines": {
+    "node": ">=4.0.0"
   },
   "dependencies": {
     "spur-config": "^1.0.2",
@@ -52,7 +61,7 @@
     "mocha": "^2.4.5",
     "nock": "^9.0.2",
     "sinon": "^1.17.6",
-    "spur-common": "^0.3.1",
-    "spur-web": "^0.4.1"
+    "spur-common": "^1.0.0",
+    "spur-web": "^1.0.0"
   }
 }
