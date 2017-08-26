@@ -1,9 +1,9 @@
-import spur from 'spur-ioc';
-import spurCommon from 'spur-common';
-import spurWeb from 'spur-web';
-import registerConfig from 'spur-common/registerConfig';
-import localInjector from '../../src/injector';
-import path from 'path';
+const spur = require('spur-ioc');
+const spurCommon = require('spur-common');
+const spurWeb = require('spur-web');
+const registerConfig = require('spur-common/registerConfig');
+const localInjector = require('../../src/injector');
+const path = require('path');
 
 module.exports = function () {
   const ioc = spur.create('test-spur-mockserver');

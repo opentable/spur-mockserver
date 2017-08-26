@@ -26,12 +26,14 @@ The Spur Framework is a collection of commonly used Node.JS libraries used to cr
 
 ## Installing
 
-`Dependencies:`
-```bash
+**`Dependencies:`**
+
+```shell
 $ npm install --save spur-ioc spur-config spur-common spur-web
 ```
 
-`Module:`
+**`Module:`**
+
 ```bash
 $ npm install spur-mockserver --save
 ```
@@ -64,8 +66,8 @@ module.exports = function () {
   ioc.merge(spurMockserver());
 
   ioc.registerFolders(__dirname, [
-    'mocks'
-    'runtime'
+    'mocks/'
+    'runtime/'
   ]);
 
   return ioc;
@@ -253,7 +255,7 @@ To run the test suite, first install the dependancies, then run `npm test`
 
 ```bash
 $ npm install
-$ npm build-and-test
+$ npm test
 ```
 
 # License

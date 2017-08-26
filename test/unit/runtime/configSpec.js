@@ -1,7 +1,9 @@
 describe('config', function () {
+  const base = this;
+
   beforeEach(() => {
-    injector().inject((config) => {
-      this.config = config;
+    injector().inject(function (config) {
+      base.config = config;
     });
   });
 

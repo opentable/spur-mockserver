@@ -1,4 +1,5 @@
 module.exports = function (MockEndpoint) {
+
   class UsersMockEndpoint extends MockEndpoint {
 
     method() {

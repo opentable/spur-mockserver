@@ -1,14 +1,16 @@
 describe('UsersMockEndpoint', function () {
-  beforeEach(() => {
-    injector().inject((UsersMockEndpoint, MockWebServer, config, HTTPService, Logger) => {
-      this.UsersMockEndpoint = UsersMockEndpoint;
-      this.MockWebServer = MockWebServer;
-      this.config = config;
-      this.HTTPService = HTTPService;
-      this.Logger = Logger;
+  const base = this;
 
-      this.Logger.useRecorder();
-      this.server = new this.MockWebServer();
+  beforeEach(() => {
+    return injector().inject(function (UsersMockEndpoint, MockWebServer, config, HTTPService, Logger) {
+      base.UsersMockEndpoint = UsersMockEndpoint;
+      base.MockWebServer = MockWebServer;
+      base.config = config;
+      base.HTTPService = HTTPService;
+      base.Logger = Logger;
+
+      base.Logger.useRecorder();
+      base.server = new base.MockWebServer();
     });
   });
 

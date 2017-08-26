@@ -1,4 +1,7 @@
-module.exports = function (BaseWebServer, MockEndpointRegistration, Logger, ControllerRegistration, _) {
+const _map = require('lodash.map');
+
+module.exports = function (BaseWebServer, MockEndpointRegistration, Logger, ControllerRegistration) {
+
   class MockWebServer extends BaseWebServer {
     constructor() {
       super();
@@ -12,7 +15,6 @@ module.exports = function (BaseWebServer, MockEndpointRegistration, Logger, Cont
       ControllerRegistration.register(this.app, this);
     }
 
-    // eslint-disable-next-line
     registerControllers() {
     }
 
@@ -30,11 +32,11 @@ module.exports = function (BaseWebServer, MockEndpointRegistration, Logger, Cont
     }
 
     handleFixtureRequest(req, res) {
-      res.send(_.map(req.body.fixtures, this.mapFixture.bind(this)));
+      res.send(_map(req.body.fixtures, this.mapFixture.bind(this)));
     }
 
     handleFixtureRequestV2(req, res) {
-      res.send(_.map(req.body.fixtures, this.mapFixtureV2.bind(this)));
+      res.send(_map(req.body.fixtures, this.mapFixtureV2.bind(this)));
     }
 
     mapFixture(fixture) {
@@ -48,7 +50,7 @@ module.exports = function (BaseWebServer, MockEndpointRegistration, Logger, Cont
     }
 
     handleFixtureRequestV3(req, res) {
-      res.send(_.map(req.body.fixtures, this.mapFixtureV3.bind(this)));
+      res.send(_map(req.body.fixtures, this.mapFixtureV3.bind(this)));
     }
 
     mapFixtureV3(fixture) {
