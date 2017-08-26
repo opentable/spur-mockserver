@@ -1,5 +1,3 @@
-/* eslint-disable no-param-reassign */
-
 module.exports = function (Logger) {
   class MockEndpoint {
 

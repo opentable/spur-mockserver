@@ -1,7 +1,9 @@
 describe('MockWebServer', function () {
+  const base = this;
+
   beforeEach(() => {
-    injector().inject((MockWebServer) => {
-      this.MockWebServer = MockWebServer;
+    injector().inject(function (MockWebServer) {
+      base.MockWebServer = MockWebServer;
     });
   });
 

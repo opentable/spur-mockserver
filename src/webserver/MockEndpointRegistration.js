@@ -1,20 +1,23 @@
-module.exports = function ($injector, _, Logger, MockEndpoint) {
-  class MockEndpointRegistration {
+const _values = require('lodash.values');
+const _filter = require('lodash.filter');
+const _invokeMap = require('lodash.invokemap');
 
-    constructor() {
-      this.controllers = $injector.getRegex(/MockEndpoint$/);
-    }
+module.exports = function ($injector, Logger, MockEndpoint) {
+  const controllers = $injector.getRegex(/MockEndpoint$/);
+
+  class MockEndpointRegistration {
 
     register(app, webServer, useDefaults) {
       function instanceOfMockEndpoint(c) {
         return c instanceof MockEndpoint;
       }
 
-      const registeredCount = _.chain(this.controllers)
-        .values()
-        .filter(instanceOfMockEndpoint)
-        .invokeMap('configure', app, webServer, useDefaults)
-        .value().length;
+      const filteredValues = _filter(_values(controllers), instanceOfMockEndpoint);
+
+      // Call the configuration against every controller
+      _invokeMap(filteredValues, 'configure', app, webServer, useDefaults);
+
+      const registeredCount = filteredValues.length;
 
       Logger.log(`Registered ${registeredCount} MockEndpoint(s)`);
     }
