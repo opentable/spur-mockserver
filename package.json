@@ -1,6 +1,6 @@
 {
   "name": "spur-mockserver",
-  "version": "0.0.12",
+  "version": "2.0.0-rc.1",
   "description": "A Node.js library with tools to allow for the creation of mock web servers for testing with mocks and real web servers.",
   "main": "./src/injector",
   "scripts": {
@@ -44,8 +44,8 @@
     "lodash.invokemap": "4.6.0",
     "lodash.map": "4.6.0",
     "lodash.values": "4.3.0",
-    "spur-config": ">=2.0.0-rc.1",
-    "spur-ioc": ">=1.0.0-rc.1"
+    "spur-config": "^2.0.0",
+    "spur-ioc": "^1.0.0"
   },
   "devDependencies": {
     "chai": "^4.1.1",
@@ -54,7 +54,7 @@
     "mocha": "^3.5.0",
     "nock": "^9.0.2",
     "sinon": "^3.2.1",
-    "spur-common": ">=2.0.0-rc.1",
-    "spur-web": ">=2.0.0-rc.1"
+    "spur-common": "^2.0.0",
+    "spur-web": "^2.0.0"
   }
 }
