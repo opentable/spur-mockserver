@@ -6,6 +6,10 @@ A [Node.js](http://nodejs.org/) library with tools to allow for the creation of 
   [![NPM Install Size][npm-install-size-image]][npm-install-size-url]
   [![NPM Downloads][npm-downloads-image]][npm-downloads-url]
 
+# `Deprecated`
+
+This package is no longer going to be maintained. The use case was not one that was used often and there are other more full [featured solutions in the market place](https://www.npmjs.com/search?q=mock%20server). 
+
 # About the Spur Framework
 
 The Spur Framework is a collection of commonly used Node.JS libraries used to create common application types with shared libraries.
