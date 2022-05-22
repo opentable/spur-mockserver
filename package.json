@@ -36,25 +36,22 @@
   "bugs": {
     "url": "https://github.com/opentable/spur-mockserver/issues"
   },
-  "engines": {
-    "node": ">=6.0.0"
-  },
   "dependencies": {
     "lodash.filter": "4.6.0",
     "lodash.invokemap": "4.6.0",
     "lodash.map": "4.6.0",
     "lodash.values": "4.3.0",
     "spur-config": "^2.0.0",
-    "spur-ioc": "^1.0.0"
+    "spur-ioc": "^1.1.1"
   },
   "devDependencies": {
-    "chai": "^4.1.1",
-    "eslint": "^4.5.0",
-    "eslint-plugin-node": "^5.1.1",
-    "mocha": "^3.5.0",
-    "nock": "^9.0.2",
-    "sinon": "^3.2.1",
-    "spur-common": "^2.0.0",
+    "chai": "^4.3.6",
+    "eslint": "^8.15.0",
+    "eslint-plugin-node": "^11.1.0",
+    "mocha": "^10.0.0",
+    "nock": "^10.0.6",
+    "sinon": "^14.0.0",
+    "spur-common": "^2.1.0",
     "spur-web": "^2.0.0"
   }
 }
