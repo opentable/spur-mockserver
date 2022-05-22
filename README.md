@@ -2,8 +2,9 @@
 
 A [Node.js](http://nodejs.org/) library with tools to allow for the creation of mock web servers for testing with mocks and real web servers.
 
-[![NPM version](https://badge.fury.io/js/spur-mockserver.png)](http://badge.fury.io/js/spur-mockserver)
-[![Build Status](https://travis-ci.org/opentable/spur-mockserver.png?branch=master)](https://travis-ci.org/opentable/spur-mockserver)
+  [![NPM Version][npm-version-image]][npm-url]
+  [![NPM Install Size][npm-install-size-image]][npm-install-size-url]
+  [![NPM Downloads][npm-downloads-image]][npm-downloads-url]
 
 # About the Spur Framework
 
@@ -261,3 +262,10 @@ $ npm test
 # License
 
 [MIT](LICENSE)
+
+[npm-downloads-image]: https://badgen.net/npm/dm/spur-mockserver
+[npm-downloads-url]: https://npmcharts.com/compare/spur-mockserver?minimal=true
+[npm-install-size-image]: https://badgen.net/packagephobia/install/spur-mockserver
+[npm-install-size-url]: https://packagephobia.com/result?p=spur-mockserver
+[npm-url]: https://npmjs.org/package/spur-mockserver
+[npm-version-image]: https://badgen.net/npm/v/spur-mockserver
